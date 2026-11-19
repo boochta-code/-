@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Погуляем?</title>
+<style>
+:root{--bg1:#ffe0c7;--bg2:#f7a373;--card:rgba(255,255,255,.42);--card-b:rgba(255,255,255,.6);--tx:#3d2b23;--mut:#7a5a4b;--ac:#ff7a3d;--ac-tx:#fff;--tile:rgba(255,255,255,.55);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#3a2219;--bg2:#6b3b28;--card:rgba(255,255,255,.08);--card-b:rgba(255,255,255,.16);--tx:#fff1e8;--mut:#e0bfae;--tile:rgba(255,255,255,.1)}}
+:root[data-theme="dark"]{--bg1:#3a2219;--bg2:#6b3b28;--card:rgba(255,255,255,.08);--card-b:rgba(255,255,255,.16);--tx:#fff1e8;--mut:#e0bfae;--tile:rgba(255,255,255,.1)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--tx);background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;overflow-x:hidden}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 48px;display:grid;gap:28px;grid-template-columns:1fr;align-items:center}
+@media(min-width:820px){.wrap{grid-template-columns:1.1fr 1fr;padding-top:48px}}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin:0 0 14px;font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--ac)}
+.hero p{font-size:17px;line-height:1.5;color:var(--mut);margin:0 0 20px;max-width:30em}
+.steps{display:flex;gap:10px;flex-wrap:wrap;padding:0;margin:0;list-style:none}
+.steps li{background:var(--card);border:1px solid var(--card-b);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.card{position:relative;background:var(--card);border:1px solid var(--card-b);border-radius:28px;padding:28px 22px 24px;min-height:440px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 20px 50px rgba(120,50,10,.18);text-align:center;display:flex;flex-direction:column;justify-content:center;gap:16px;overflow:hidden}
+.pet{font-size:76px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+h2{margin:0;font-size:28px;line-height:1.15;font-weight:800}
+.sub{margin:0;color:var(--mut);font-size:14px}
+.btn{appearance:none;border:0;border-radius:999px;background:var(--ac);color:var(--ac-tx);font:inherit;font-weight:700;font-size:16px;padding:13px 28px;cursor:pointer;box-shadow:0 8px 20px rgba(255,122,61,.4);transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:var(--tile);color:var(--tx);box-shadow:none}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:12px;justify-content:center;align-items:center;min-height:52px}
+input{width:100%;font:inherit;font-size:16px;color:var(--tx);background:var(--tile);border:1px solid var(--card-b);border-radius:14px;padding:13px 14px;color-scheme:light dark}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{appearance:none;font:inherit;color:var(--tx);background:var(--tile);border:2px solid transparent;border-radius:18px;padding:16px 8px;cursor:pointer;font-weight:600;display:grid;gap:6px;transition:.15s}
+.tile span{font-size:34px}
+.tile[aria-pressed="true"]{border-color:var(--ac);background:rgba(255,255,255,.85);color:#3d2b23;transform:scale(1.03)}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--card-b)}
+.dots i.on{background:var(--ac);width:22px;border-radius:6px}
+.sum{background:var(--tile);border-radius:16px;padding:14px;text-align:left;line-height:1.7;font-size:15px}
+.note{font-size:13px;color:var(--mut);margin:0}
+.heart{position:absolute;bottom:-30px;font-size:22px;animation:up 3.2s linear forwards;pointer-events:none}
+@keyframes up{to{transform:translateY(-560px) rotate(25deg);opacity:0}}
+#own{grid-column:1/-1;background:var(--card);border:1px solid var(--card-b);border-radius:22px;padding:18px 18px 14px}
+#own[hidden]{display:none}
+#own h3{margin:0 0 4px;font-size:18px}
+#own ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+#own li{background:var(--tile);border-radius:14px;padding:12px 14px;line-height:1.55;font-size:15px}
+#own li small{display:block;color:var(--mut);font-size:12px}
+#own .btn{padding:6px 14px;font-size:13px;margin-top:6px;box-shadow:none}
+@media(prefers-reduced-motion:reduce){.pet,.heart{animation:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <h1>Давай погуляем? <em>Выбери сам</em></h1>
+    <p>Тебя зовут на прогулку. Выбери день, время и что хочется делать — ответ сразу дойдёт до того, кто пригласил.</p>
+    <ol class="steps"><li>1 · Ответить</li><li>2 · Когда</li><li>3 · Что делаем</li></ol>
+  </section>
+  <section class="card" id="card" aria-live="polite"></section>
+</main>
+<script>
+var acts=[["🌳","Парк"],["🌊","Набережная"],["☕","Кофе с собой"],["🍦","Мороженое"]];
+var S={step:0,date:"",time:"",picks:[]};
+var card=document.getElementById("card");
+var CONFIG={telegram:"n_nrvn"}; // сюда впиши свой ник в Telegram без @, например "ivan_petrov"
+function dots(){return '<div class="dots">'+[0,1,2].map(function(i){return '<i class="'+(i===S.step?'on':'')+'"></i>'}).join("")+'</div>'}
+function hearts(){for(var i=0;i<14;i++){var h=document.createElement("div");h.className="heart";h.textContent=["🧡","✨","🌿","☀️"][i%4];h.style.left=Math.random()*92+"%";h.style.animationDelay=(Math.random()*1.2)+"s";card.appendChild(h);setTimeout(function(e){e.remove()}.bind(null,h),4600)}}
+function fmtDate(d){if(!d)return"";var p=d.split("-");var dt=new Date(+p[0],+p[1]-1,+p[2]);return dt.toLocaleDateString("ru-RU",{weekday:"long",day:"numeric",month:"long"})}
+function plan(){return S.picks.map(function(i){return acts[i][0]+" "+acts[i][1]}).join(", ")}
+function render(){
+  if(S.step===0){
+    card.innerHTML='<div class="pet">🐱</div><h2>Пойдёшь со мной гулять? 🌿</h2><div class="row"><button class="btn" id="yes">Да 🧡</button><button class="btn ghost" id="no">Нет</button></div>'+dots();
+    document.getElementById("yes").onclick=function(){S.step=1;hearts();render()};
+    var no=document.getElementById("no");
+    function dodge(e){e.preventDefault();var r=card.getBoundingClientRect();var x=(Math.random()-.5)*(r.width-140),y=(Math.random()-.5)*120;no.style.position="relative";no.style.transform="translate("+x+"px,"+y+"px)"}
+    no.onmouseenter=dodge;no.ontouchstart=dodge;no.onclick=dodge;
+  }else if(S.step===1){
+    card.innerHTML='<div class="pet">🧸</div><h2>Когда тебе удобно? 📅</h2><input type="date" id="d" aria-label="Дата" value="'+S.date+'"><input type="time" id="t" aria-label="Время" value="'+S.time+'"><button class="btn" id="n">Продолжить</button>'+dots();
+    var d=document.getElementById("d"),t=document.getElementById("t"),n=document.getElementById("n");
+    var td=new Date();d.min=td.getFullYear()+"-"+String(td.getMonth()+1).padStart(2,"0")+"-"+String(td.getDate()).padStart(2,"0");
+    function chk(){S.date=d.value;S.time=t.value;n.disabled=!(S.date&&S.time)}
+    d.oninput=t.oninput=chk;chk();
+    n.onclick=function(){S.step=2;render()};
+  }else if(S.step===2){
+    card.innerHTML='<h2>Что будем делать? 😋</h2><p class="sub">Можно выбрать несколько</p><div class="grid">'+acts.map(function(a,i){return '<button class="tile" data-i="'+i+'" aria-pressed="'+(S.picks.indexOf(i)>-1)+'"><span>'+a[0]+'</span>'+a[1]+'</button>'}).join("")+'</div><button class="btn" id="n">Готово</button>'+dots();
+    var n=document.getElementById("n");n.disabled=!S.picks.length;
+    [].forEach.call(card.querySelectorAll(".tile"),function(b){b.onclick=function(){var i=+b.dataset.i,k=S.picks.indexOf(i);if(k>-1)S.picks.splice(k,1);else S.picks.push(i);render()}});
+    n.onclick=function(){S.step=3;hearts();render()};
+  }else{
+    var msg="Договорились, гуляем! 🌿 "+fmtDate(S.date)+", "+S.time+". Что делаем: "+plan()+".";
+        card.innerHTML='<div class="pet">🥰</div><h2>Договорились! 🎉</h2><div class="sum">📅 '+fmtDate(S.date)+'<br>⏰ '+S.time+'<br>✨ '+plan()+'</div><p class="note">Нажми «Отправить ответ», чтобы прислать свой выбор.</p><button class="btn" id="c">Отправить ответ</button><button class="btn ghost" id="r">Выбрать заново</button>';
+    document.getElementById("c").onclick=function(){var b=this;
+      function copy(){try{navigator.clipboard.writeText(msg).then(function(){b.textContent="Скопировано — вставь в чат ✓"},function(){b.textContent="Не получилось"})}catch(e){b.textContent="Не получилось"}}
+      if(CONFIG.telegram){window.open("https://t.me/"+encodeURIComponent(CONFIG.telegram)+"?text="+encodeURIComponent(msg),"_blank");return}
+      if(navigator.share){navigator.share({text:msg}).catch(copy)}else{copy()}};
+    document.getElementById("r").onclick=function(){S={step:0,date:"",time:"",picks:[]};render()};
+  }
+}
+render();
+</script>
+</body>
+</html>
